@@ -1,25 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My Blog</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>InspiCard - Daily Motivation</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card-container {
+      perspective: 1000px;
+    }
+
+    .card {
+      width: 300px;
+      height: 200px;
+      border-radius: 15px;
+      background-color: #fff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .card.flip {
+      transform: rotateY(180deg);
+    }
+
+    .card-side {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .front {
+      background-color: #fefefe;
+      color: #2c3e50;
+    }
+
+    .back {
+      background-color: #2c3e50;
+      color: #fefefe;
+      transform: rotateY(180deg);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #2980b9;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #1c5980;
+    }
+
+    .wrapper {
+      text-align: center;
+    }
+
+    h1 {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
-    <h1>My Awesome Blog</h1>
-    <div class="container">
-        <div class="content">
-            <h2>Post Title 1</h2>
-            <p>This is the description for the first blog post.</p>
-            <h2>Post Title 2</h2>
-            <p>This is the description for the second blog post.</p>
-            <h2>Post Title 3</h2>
-            <p>This is the description for the third blog post.</p>
+
+  <div class="wrapper">
+    <h1>🎯 InspiCard</h1>
+    <div class="card-container">
+      <div class="card" id="card">
+        <div class="card-side front" id="quoteText">
+          Click 'New Card' to get inspired!
         </div>
-        <div class="sidebar">
-            <h3>About Me</h3>
-            <p>Some information about the blog or the author.</p>
+        <div class="card-side back" id="actionText">
+          Let's do something amazing today!
         </div>
+      </div>
     </div>
+    <button onclick="generateCard()">✨ New Card</button>
+  </div>
+
+  <script>
+    const quotes = [
+      {
+        quote: "Push yourself, because no one else is going to do it for you.",
+        action: "Write down 1 goal for today and complete it."
+      },
+      {
+        quote: "Great things never come from comfort zones.",
+        action: "Step out and try something new today!"
+      },
+      {
+        quote: "Success doesn’t just find you. You have to go out and get it.",
+        action: "Make a to-do list and tackle the hardest task first."
+      },
+      {
+        quote: "Dream it. Wish it. Do it.",
+        action: "Take one small step toward your dream today."
+      },
+      {
+        quote: "Stay positive, work hard, make it happen.",
+        action: "Smile at 3 people today, even if you're tired."
+      }
+    ];
+
+    const card = document.getElementById("card");
+    const quoteText = document.getElementById("quoteText");
+    const actionText = document.getElementById("actionText");
+
+    function generateCard() {
+      const random = quotes[Math.floor(Math.random() * quotes.length)];
+      quoteText.innerText = random.quote;
+      actionText.innerText = random.action;
+      card.classList.toggle("flip");
+    }
+
+    card.addEventListener("click", () => {
+      card.classList.toggle("flip");
+    });
+  </script>
+
 </body>
 </html>
